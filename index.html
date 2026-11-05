@@ -1,26 +1,35 @@
-<!DOCTYPE html>
-<html lang="km">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Record</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-  </style>
+<meta charset="utf-8">
+<title>Task Records</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#2f6fed">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Task Records">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+  html, body { margin: 0; height: 100%; background: #f4f6f9; overflow: hidden; }
+  @media (prefers-color-scheme: dark) { html, body { background: #0f1319; } }
+  iframe { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; }
+  #msg { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+         font: 13px ui-monospace, Menlo, Consolas, monospace; color: #6b7686; }
+</style>
 </head>
 <body>
-  <!-- ជំនួស URL ខាងក្រោមដោយ Apps Script Web App URL របស់អ្នក -->
-  <iframe src="https://script.google.com/macros/s/AKfycbxjv5n87CIGdAOGQKP5TSfjsvVr1Qh4_3esZ3rrESs3hYOOcCZ66BbseFDduO6doB-JSQ/exec"></iframe>
+<div id="msg">Loading Task Records...</div>
+<iframe id="app" title="Task Records" allow="camera; clipboard-write" src="https://script.google.com/macros/s/AKfycbxjv5n87CIGdAOGQKP5TSfjsvVr1Qh4_3esZ3rrESs3hYOOcCZ66BbseFDduO6doB-JSQ/exec"></iframe>
+<script>
+  document.getElementById('app').addEventListener('load', function () {
+    var m = document.getElementById('msg'); if (m) m.remove();
+  });
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+  }
+</script>
 </body>
 </html>
